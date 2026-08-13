@@ -1,12 +1,10 @@
-# MemPO: Memory-Augmented Policy Optimization
+# RetainGRPO
 
 **Mitigating Catastrophic Forgetting in GRPO via Cross-Step EMA Normalization and Mastery Filtering**
 
 ![MemPO Overview](assets/mempo_overview.png)
 
 ## Overview
-
-MemPO (Memory-augmented Policy Optimization, internally developed as EMA-GRPO) addresses a critical failure mode in Group Relative Policy Optimization (GRPO): **catastrophic forgetting of mastered problems during extended reinforcement learning training**.
 
 ### Core Idea
 
@@ -15,7 +13,7 @@ Standard GRPO normalizes advantages using per-batch statistics, leading to:
 2. Destructive gradient updates on already-mastered problems
 3. Insufficient learning signal on hard problems
 
-MemPO introduces a lightweight **PromptMemoryBank** that maintains per-prompt exponential moving average (EMA) statistics across training steps, with three key innovations:
+RetainGRPO introduces a lightweight **PromptMemoryBank** that maintains per-prompt exponential moving average (EMA) statistics across training steps, with three key innovations:
 
 - **Parameter-free Dynamic Alpha**: `α_t(p) = 1/n + (n-2)/n · (1 - |μ̂_t - μ_{t-1}|)` — automatically adapts EMA smoothing based on policy change speed
 - **Mastery Filter**: Zero-gradient protection when EMA mean exceeds τ = (n-1)/n, preventing harmful updates on mastered content
